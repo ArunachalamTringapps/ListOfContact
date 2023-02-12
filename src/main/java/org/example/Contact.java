@@ -12,10 +12,10 @@ class List{
     static Logger l=Logger.getLogger("arun");
     static Scanner sc=new Scanner(System.in);
     private String name;
-    protected final Hashtable<String, LinkedList<Object>> ht;
+    protected final HashMap<String, LinkedList<Object>> ht;
     List(){
        l.info("Welcome to Contact List");
-       ht=new Hashtable<>();
+       ht=new HashMap<>();
     }
     protected void add() throws MyException {
         try {
@@ -58,9 +58,10 @@ class List{
         }
         else {
             l.info("For security purpose only display the names in contact list: ");
-            Enumeration<String> enu = ht.keys();
-            while (enu.hasMoreElements()) {
-                l.log(Level.INFO, enu::nextElement);
+            Set<String> keys=ht.keySet();
+            Iterator<String> i= keys.iterator();
+            while (i.hasNext()){
+                l.log(Level.INFO,()->"Name: "+i.next());
             }
         }
     }
@@ -96,7 +97,7 @@ public class Contact extends List{
                     case 3 -> li.display();
                     case 4 -> li.search();
                     case 0 -> System.exit(0);
-                    default -> l.warning("Wrong inputs : ");
+                    default -> l.warning("Wrong inputs !");
                 }
             } while (true);
 
